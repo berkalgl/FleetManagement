@@ -1,0 +1,10 @@
+version: '3.4'
+
+services:
+  shipping.api:
+    image: ${DOCKER_REGISTRY-}shippingapi
+    build:
+      context: .
+      dockerfile: src/Services/Shipping/Shipping.API/Dockerfile
+    ports:
+        - 8080:80
