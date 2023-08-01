@@ -8,7 +8,7 @@ This backend application contains
 - Shipping Infrastructure for infrastructure of the application
 
 ### Shipping API
-- It has only one controller which is VehiclesController and handles the post method of the endpoint v1/vehicles/{vehiclePlate}/distribute 
+- It has only one controller which is VehiclesController and handles the post method of the endpoint v1/vehicles/{vehiclePlate}/distribution-request 
 and send DistributeCommand to mediatr to distribute shipments
     Returns 200 Ok if everything Ok in the Server.
     Returns 400 Bad Request if request cannot be handled for the api, invalid request or any thrown Shipping domain exception logic.
@@ -49,7 +49,7 @@ and Interfaces for the contracts which are used with other modules in common.
 - git clone https://github.com/DevelopmentHiring/BerkAlgul.git
 - docker-compose up -d
 - curl -L -X GET 'http://localhost:8080/health'
-- curl -L -X POST 'http://localhost:8080/v1/vehicles/34TL34/distribute' -H 'Content-Type: application/json' --data-raw '{"route":[{"deliveryPoint":1,"deliveries":[{"barcode":"P7988000121"},{"barcode":"P7988000122"},{"barcode":"P7988000123"},{"barcode":"P8988000121"},{"barcode":"C725799"}]},{"deliveryPoint":2,"deliveries":[{"barcode":"P8988000123"},{"barcode":"P8988000124"},{"barcode":"P8988000125"},{"barcode":"C725799"}]},{"deliveryPoint":3,"deliveries":[{"barcode":"P9988000126"},{"barcode":"P9988000127"},{"barcode":"P9988000128"},{"barcode":"P9988000129"},{"barcode":"P9988000130"}]}]}'
+- curl -L -X POST 'http://localhost:8080/v1/vehicles/34TL34/distribution-request ' -H 'Content-Type: application/json' --data-raw '{"route":[{"deliveryPoint":1,"deliveries":[{"barcode":"P7988000121"},{"barcode":"P7988000122"},{"barcode":"P7988000123"},{"barcode":"P8988000121"},{"barcode":"C725799"}]},{"deliveryPoint":2,"deliveries":[{"barcode":"P8988000123"},{"barcode":"P8988000124"},{"barcode":"P8988000125"},{"barcode":"C725799"}]},{"deliveryPoint":3,"deliveries":[{"barcode":"P9988000126"},{"barcode":"P9988000127"},{"barcode":"P9988000128"},{"barcode":"P9988000129"},{"barcode":"P9988000130"}]}]}'
 
 - You can use swagger for testing as well at the endpoint 'http://localhost:8080/swagger/index.html', it is nice for api testing.
 - All the data mentioned above is seeded to in memory database when deploying the application at the first time.
