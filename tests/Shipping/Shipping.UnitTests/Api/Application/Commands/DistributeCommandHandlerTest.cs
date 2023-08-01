@@ -60,17 +60,25 @@ namespace Shipping.UnitTests.Api.Application.Commands
         }
         private static DistributeCommand GetFakeDistributeCommand()
         {
-            var distributeCommand = new DistributeCommand("34TL34",
-                new List<Route>()
+            var distributeCommand = new DistributeCommand()
+            {
+                VehiclePlate = "34TL34",
+                Routes = new List<Route>()
                 {
-                    new Route(
-                        1,
-                        new List<Delivery>()
+                    new Route()
+                    {
+                        DeliveryPoint = 1,
+                        Deliveries = new List<Delivery>()
                         {
-                            new Delivery("P7988000121")
+                            new Delivery()
+                            {
+                                Barcode = "P7988000121"
+                            }
                         }
-                    )
-                });
+
+                    }
+                }
+            };
 
             return distributeCommand;
         }

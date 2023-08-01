@@ -22,7 +22,7 @@ namespace Shipping.UnitTests.Api.Controllers
             //Arrange
 
             //Act
-            var vehiclesController = new VehiclesController(_mediatorMock.Object);
+            var vehiclesController = new VehiclesDistributionRequestController(_mediatorMock.Object);
             var actionResult = await vehiclesController.Distribute("", null);
 
             //Arrange
@@ -32,16 +32,15 @@ namespace Shipping.UnitTests.Api.Controllers
         public async Task Distribute_ValidRequest_ReturnsOk()
         {
             //Arrange
-            var distributeRequest = GetFakeDistributeRequest();
-            var distributeCommand = DistributeCommand.FromRequest("34TL34", distributeRequest);
+            var distributeCommand = GetFakeDistributeRequest();
 
             _mediatorMock
                 .Setup(mediator => mediator.Send(distributeCommand, default))
                 .ReturnsAsync(GetFakeDistributeResponse());
 
             //Act
-            var vehiclesController = new VehiclesController(_mediatorMock.Object);
-            var actionResult = await vehiclesController.Distribute("34TL34", distributeRequest);
+            var vehiclesController = new VehiclesDistributionRequestController(_mediatorMock.Object);
+            var actionResult = await vehiclesController.Distribute("34TL34", distributeCommand);
 
             //Arrange
             Assert.IsType<OkObjectResult>(actionResult);
@@ -78,45 +77,45 @@ namespace Shipping.UnitTests.Api.Controllers
                 });
         }
 
-        private DistributeRequest GetFakeDistributeRequest()
+        private DistributeCommand GetFakeDistributeRequest()
         {
-            return new DistributeRequest()
+            return new DistributeCommand()
             {
-                Route = new List<RouteRequest>()
+                Routes = new List<Route>()
                 {
-                    new RouteRequest()
+                    new Route()
                     {
                         DeliveryPoint = 1,
-                        Deliveries = new List<DeliveryRequest>()
+                        Deliveries = new List<Delivery>()
                         {
-                            new DeliveryRequest() { Barcode = "P7988000121"},
-                            new DeliveryRequest() { Barcode = "P7988000122"},
-                            new DeliveryRequest() { Barcode = "P7988000123"},
-                            new DeliveryRequest() { Barcode = "P8988000121"},
-                            new DeliveryRequest() { Barcode = "C725799"}
+                            new Delivery() { Barcode = "P7988000121"},
+                            new Delivery() { Barcode = "P7988000122"},
+                            new Delivery() { Barcode = "P7988000123"},
+                            new Delivery() { Barcode = "P8988000121"},
+                            new Delivery() { Barcode = "C725799"}
                         }
                     },
-                    new RouteRequest()
+                    new Route()
                     {
                         DeliveryPoint = 2,
-                        Deliveries= new List<DeliveryRequest>()
+                        Deliveries= new List<Delivery>()
                         {
-                            new DeliveryRequest() { Barcode = "P8988000123"},
-                            new DeliveryRequest() { Barcode = "P8988000124"},
-                            new DeliveryRequest() { Barcode = "P8988000125"},
-                            new DeliveryRequest() { Barcode = "C725799"}
+                            new Delivery() { Barcode = "P8988000123"},
+                            new Delivery() { Barcode = "P8988000124"},
+                            new Delivery() { Barcode = "P8988000125"},
+                            new Delivery() { Barcode = "C725799"}
                         }
                     },
-                    new RouteRequest()
+                    new Route()
                     {
                         DeliveryPoint = 3,
-                        Deliveries= new List<DeliveryRequest>()
+                        Deliveries= new List<Delivery>()
                         {
-                            new DeliveryRequest() { Barcode = "P9988000126"},
-                            new DeliveryRequest() { Barcode = "P9988000127"},
-                            new DeliveryRequest() { Barcode = "P9988000128"},
-                            new DeliveryRequest() { Barcode = "P9988000129"},
-                            new DeliveryRequest() { Barcode = "P9988000130"}
+                            new Delivery() { Barcode = "P9988000126"},
+                            new Delivery() { Barcode = "P9988000127"},
+                            new Delivery() { Barcode = "P9988000128"},
+                            new Delivery() { Barcode = "P9988000129"},
+                            new Delivery() { Barcode = "P9988000130"}
                         }
                     }
                 }
